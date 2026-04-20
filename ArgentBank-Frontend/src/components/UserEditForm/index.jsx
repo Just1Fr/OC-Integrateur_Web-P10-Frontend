@@ -30,7 +30,9 @@ export default function UserEditForm({ onCancel }) {
             <form id="user-edit-form" onSubmit={ handleSubmit(onSubmit) }>
                 <div className="input-wrapper">
                     <label htmlFor="username">User name:</label>
-                    <input type="text" id="username" defaultValue={userName} placeholder={userName}
+                    <input type="text" id="username" autoComplete="nickname"
+                        defaultValue={userName}
+                        placeholder={userName}
                         {...register("newUserName", { required: true, minLength: 3 })}
                     />
                     {errors.newUserName && errors.newUserName.type === "required" && (
@@ -42,11 +44,19 @@ export default function UserEditForm({ onCancel }) {
                 </div>
                 <div className="input-wrapper">
                     <label htmlFor="first-name">First name:</label>
-                    <input type="text" id="first-name" defaultValue={firstName} placeholder={firstName} disabled/>
+                    <input type="text" id="first-name" autoComplete="given-name"
+                        defaultValue={firstName}
+                        placeholder={firstName}
+                        disabled
+                    />
                 </div>
                 <div className="input-wrapper">
                     <label htmlFor="last-name">Last name:</label>
-                    <input type="text" id="last-name" defaultValue={lastName} placeholder={lastName} disabled/>
+                    <input type="text" id="last-name" autoComplete="family-name"
+                        defaultValue={lastName}
+                        placeholder={lastName}
+                        disabled
+                    />
                 </div>
                 <button className="save-button" type="submit">Save</button>
                 <button className="cancel-button" type="reset" onClick={onCancel}>Cancel</button>

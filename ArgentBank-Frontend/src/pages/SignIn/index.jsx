@@ -37,7 +37,7 @@ export default function SignIn() {
                 <form id="sign-in-form" onSubmit={ handleSubmit(onSubmit) }>
                     <div className="input-wrapper">
                         <label htmlFor="email">E-mail</label>
-                        <input type="email" id="email"
+                        <input type="email" id="email" autoComplete="email"
                             {...register("email", {
                                 required: true,
                                 minLength: 3,
@@ -56,7 +56,7 @@ export default function SignIn() {
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password"
+                        <input type="password" id="password" autoComplete="current-password"
                             {...register("password", { required: true, minLength: 6 })}
                         />
                         {errors.password && errors.password.type === "required" && (
@@ -67,7 +67,7 @@ export default function SignIn() {
                         )}
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
+                        <input type="checkbox" id="remember-me" autoComplete="off" />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <button className="sign-in-button" type="submit">Sign In</button>

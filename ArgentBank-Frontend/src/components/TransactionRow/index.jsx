@@ -105,7 +105,8 @@ export default function TransactionRow({ transactionData, categories }) {
                         <span>
                             {editNote ?
                                 <>
-                                    <input type="text" name="note" id={`note-${transactionData.id}`}
+                                    <input type="text" name="note" autoComplete="off"
+                                        id={`note-${transactionData.id}`}
                                         placeholder={note}
                                         defaultValue={note}
                                     />
