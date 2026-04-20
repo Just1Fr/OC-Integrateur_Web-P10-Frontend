@@ -17,7 +17,7 @@ export default function UserEditForm({ onCancel }) {
     } = useForm()
 
     const onSubmit = async (data) => {
-        const newUserName = data.newUserName
+        const newUserName = data.newUserName.trim()
         if (newUserName !== userName) {
             await dispatch(setUserName({ token, newUserName }))
         }
@@ -33,7 +33,13 @@ export default function UserEditForm({ onCancel }) {
                     <input type="text" id="username" autoComplete="nickname"
                         defaultValue={userName}
                         placeholder={userName}
-                        {...register("newUserName", { required: true, minLength: 3 })}
+                        {...register("newUserName", { 
+                            required: true,
+                            validate: {
+                                minLength: value => value.trim().length >= 3 || 
+                                'Username must be at least 3 characters (without spaces)'
+                            }
+                        })}
                     />
                     {errors.newUserName && errors.newUserName.type === "required" && (
                         <span className="alert">This field is required.</span>
