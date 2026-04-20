@@ -1,7 +1,7 @@
 import './index.css'
 import { NumericFormat } from 'react-number-format'
 
-export default function AccountCard({ accountData }) {
+export default function AccountCard({ accountData, buttonText="", buttonIcon=null, onButtonClick }) {
     return (
         <section className="account-card">
             <div className="account-content-wrapper">
@@ -12,7 +12,10 @@ export default function AccountCard({ accountData }) {
                 <p className="account-balance-description">Available Balance</p>
             </div>
             <div className="account-content-wrapper cta">
-                <button className="account-button">View transactions</button>
+                <button className={"account-button" + (buttonText ? "" : " no-text")} onClick={() => onButtonClick(accountData.id)}>
+                    {buttonIcon}
+                    {buttonText}
+                </button>
             </div>
         </section>
     )

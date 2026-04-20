@@ -2,6 +2,7 @@ import './index.css'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Account from '../../components/Account'
 import AccountCard from '../../components/AccountCard'
 import UserEditForm from '../../components/UserEditForm'
 
@@ -19,7 +20,17 @@ export default function User() {
 
     const [showEdit, setShowEdit] = useState(false)
     function toggleEdit() {
+        showAccount && setShowAccount(false)
+        setAccountId(-1)
         setShowEdit(!showEdit)
+    }
+
+    const [showAccount, setShowAccount] = useState(false)
+    const [accountId, setAccountId] = useState(-1)
+    function toggleAccount(id=-1) {
+        showEdit && setShowEdit(false)
+        setAccountId(id)
+        setShowAccount(!showAccount)
     }
 
     const accounts = [
@@ -45,22 +56,29 @@ export default function User() {
             key={`card-${item.id}`}
             accountData={item}
             buttonText="View transactions"
+            onButtonClick={toggleAccount}
         />
     )
 
     return (
         <main className="main bg-dark">
+            {showAccount && <Account accountData={accounts.find(acc => acc.id === accountId)} onClose={() => setShowAccount(false)} />}
+            
             {showEdit && <UserEditForm onCancel={() => setShowEdit(false)} />}
             
-            {!showEdit && (
-                <div className="header">
-                    <h2>Welcome back<br />{firstName ? firstName : "firstName"} {lastName ? lastName : "lastName"}!</h2>
-                    <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
-                </div>
-            )}
-        
-            <h3 className="sr-only">Accounts</h3>
-            {cards}
+            {!showAccount && 
+                <>
+                    {!showEdit && (
+                        <div className="header">
+                            <h2>Welcome back<br />{firstName ? firstName : "firstName"} {lastName ? lastName : "lastName"}!</h2>
+                            <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
+                        </div>
+                    )}
+                
+                    <h3 className="sr-only">Accounts</h3>
+                    {cards}
+                </>
+            }
         </main>
     )
 }

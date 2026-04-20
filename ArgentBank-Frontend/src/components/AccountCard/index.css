@@ -46,6 +46,11 @@
     color: #fff;
 }
 
+.account-button.no-text {
+	width: auto;
+	aspect-ratio: 1;
+}
+
 @media (min-width: 720px) {
     .account-card {
         flex-direction: row;

@@ -1,0 +1,35 @@
+.table-row {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding: 10px;
+    background-color: #00bc77;
+    color: white;
+    text-shadow: .5px .5px rgba(0, 0, 0, 0.4);
+}
+
+.row-content,
+.row-details {
+    display: grid;
+    grid-template-columns: .5fr 1fr .5fr .5fr 20px;
+    justify-items: baseline;
+}
+
+.cell {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    width: fit-content;
+}
+
+.cell span {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.table-row .button {
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0.5px 0.5px rgba(0, 0, 0, 0.4));
+}
