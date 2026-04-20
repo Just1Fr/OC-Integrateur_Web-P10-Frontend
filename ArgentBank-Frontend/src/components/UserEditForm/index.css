@@ -1,0 +1,40 @@
+.user-edit-content {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+#user-edit-form button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+}
+
+#user-edit-form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+#user-edit-form .input-wrapper label {
+    font-weight: bold;
+}
+
+#user-edit-form .input-wrapper input {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+#user-edit-form .input-wrapper .alert {
+    color: red;
+    font-size: .9rem;
+}

@@ -1,4 +1,4 @@
-import "./index.css"
+import './index.css'
 
 export default function FeatureCard({ title="", description="", imgSrc="", imgAlt="" }) {
     return (

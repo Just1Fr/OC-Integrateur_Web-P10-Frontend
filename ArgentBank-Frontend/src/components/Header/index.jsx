@@ -1,11 +1,20 @@
-import "./index.css"
-import { NavLink, useLocation } from "react-router-dom"
+import './index.css'
+import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../features/auth/authSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faSignOut } from '@fortawesome/free-solid-svg-icons'
 
-function Header() {
+export default function Header() {
 
-    const logged = useLocation().pathname === "/User"
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        dispatch(logout())
+    }
+
+    const userName = useSelector((state) => state.auth.userName)
 
     return (
         <nav className="main-nav">
@@ -15,20 +24,18 @@ function Header() {
             </NavLink>
             <div>
                 {
-                    logged ?
-                    <NavLink className="main-nav-item" to="/User">
+                    userName ?
+                    <NavLink className="main-nav-item" to="/user">
                         <FontAwesomeIcon icon={faCircleUser} />
-                        Tony
+                        {userName ? userName : "Unknown"}
                     </NavLink>
                     : null
                 }
-                <NavLink className="main-nav-item" to={logged ? "/" : "/sign-in"}>
-                    <FontAwesomeIcon icon={logged ? faSignOut : faCircleUser} />
-                    {logged ? "Sign Out" : "Sign In"}
+                <NavLink className="main-nav-item" to={userName ? "/" : "/sign-in"} onClick={userName ? handleLogout : null}>
+                    <FontAwesomeIcon icon={userName ? faSignOut : faCircleUser} />
+                    {userName ? "Sign Out" : "Sign In"}
                 </NavLink>
             </div>
         </nav>
     )
 }
-
-export default Header

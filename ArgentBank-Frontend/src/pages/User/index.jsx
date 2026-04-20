@@ -1,45 +1,66 @@
-import "./index.css"
+import './index.css'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import AccountCard from '../../components/AccountCard'
+import UserEditForm from '../../components/UserEditForm'
 
-function User() {
+export default function User() {
+
+    const navigate = useNavigate()
+
+    const {firstName, lastName, token} = useSelector((state) => state.auth)
+
+    useEffect(() => {
+        if (!token) {
+            navigate("/sign-in")
+        }
+    }, [token, navigate])
+
+    const [showEdit, setShowEdit] = useState(false)
+    function toggleEdit() {
+        setShowEdit(!showEdit)
+    }
+
+    const accounts = [
+        {
+            id: 8349,
+            balance: 2082.79,
+            type: "Checking",
+        },
+        {
+            id: 6712,
+            balance: 10928.42,
+            type: "Savings",
+        },
+        {
+            id: 7186,
+            balance: 184.30,
+            type: "Credit Card",
+        },
+    ]
+
+    const cards = accounts.map((item) => 
+        <AccountCard
+            key={`card-${item.id}`}
+            accountData={item}
+            buttonText="View transactions"
+        />
+    )
+
     return (
         <main className="main bg-dark">
-            <div className="header">
-                <h1>Welcome back<br />Tony Jarvis!</h1>
-                <button className="edit-button">Edit Name</button>
-            </div>
-            <h2 className="sr-only">Accounts</h2>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-                    <p className="account-amount">$2,082.79</p>
-                    <p className="account-amount-description">Available Balance</p>
+            {showEdit && <UserEditForm onCancel={() => setShowEdit(false)} />}
+            
+            {!showEdit && (
+                <div className="header">
+                    <h2>Welcome back<br />{firstName ? firstName : "firstName"} {lastName ? lastName : "lastName"}!</h2>
+                    <button className="edit-button" onClick={toggleEdit}>Edit Name</button>
                 </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">View transactions</button>
-                </div>
-            </section>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-                    <p className="account-amount">$10,928.42</p>
-                    <p className="account-amount-description">Available Balance</p>
-                </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">View transactions</button>
-                </div>
-            </section>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-                    <p className="account-amount">$184.30</p>
-                    <p className="account-amount-description">Current Balance</p>
-                </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">View transactions</button>
-                </div>
-            </section>
+            )}
+        
+            <h3 className="sr-only">Accounts</h3>
+            {cards}
         </main>
     )
 }
-
-export default User

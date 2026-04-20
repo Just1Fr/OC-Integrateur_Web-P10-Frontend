@@ -1,4 +1,4 @@
-import "./index.css"
+import './index.css'
 import FeatureCard from "../../components/FeatureCard"
 
 export default function Home() {
